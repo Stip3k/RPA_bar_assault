@@ -30,9 +30,6 @@
     <ClCompile Include="Nasprotnik.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="mainP.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drop_metek.h">

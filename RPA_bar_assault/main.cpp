@@ -11,12 +11,12 @@ sfml-audio-d.lib
 sfml-network-d.lib
 sfml-window-d.lib
 sfml-system-d.lib
-*/
 
 #include "Drop_metek.h"
 #include "Izstr_metek.h"
 #include "Igralec.h"
 #include "Nasprotnik.h"
+*/
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
@@ -24,7 +24,7 @@ sfml-system-d.lib
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
 #include <SFML/OpenGL.hpp>
-/*
+
 class Izstr_metek
 {
 private:
@@ -146,7 +146,7 @@ public:
         }
         return false;
     }
-    //Spremeni return type od nasprotnika pri getglobalbounds
+    //Spremeni return type od nasprotnika pri getglobalbound
     bool getGlobalBound(Nasprotnik* nas) {
         if (this->o_igralec.getGlobalBounds().intersects(nas->getNas())) {
             return true;
@@ -154,7 +154,7 @@ public:
         return false;
     }
 };
-*/
+
 
 void zakljuci(sf::RenderWindow& okno, bool smrt)
 {
@@ -252,10 +252,10 @@ int main()
         }
 
         /*
-        *   1. Dodamo nove nasprotnike glede na stevilo ubitih, vsak ubit nasprotnik
-        *      poveèa stNas in za vsakega drugega ustreljenega se pojavi novi nasprotnik
-        *      na ekranu.
-        *
+            1. Dodamo nove nasprotnike glede na stevilo ubitih, vsak ubit nasprotnik
+               poveèa stNas in za vsakega drugega ustreljenega se pojavi novi nasprotnik
+               na ekranu.
+        
             2. Preverjamo ali je v stiku z igralcem, nasprotnikom,...
 
             3. TODO: Sistem za nasprotnike
@@ -270,6 +270,9 @@ int main()
             iMetVec.push_back(&nMet);
             aliStrela = false;
             stMet--;
+            s_stMet.str("");
+            s_stMet << "stMet " << stMet;
+            t_stMet.setString(s_stMet.str());
         }
 
         for (int i = 0; i < iMetVec.size(); i++) {

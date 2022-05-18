@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Izstr_metek.h"
-#include "Metek.h"
 
 class Nasprotnik
 {

@@ -151,7 +151,6 @@
     <ClCompile Include="Igralec.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Izstr_metek.cpp" />
-    <ClCompile Include="mainP.cpp" />
     <ClCompile Include="Nasprotnik.cpp" />
   </ItemGroup>
   <ItemGroup>
