@@ -18,7 +18,7 @@ public:
         this->o_iMet.setFillColor(sf::Color::Blue);
     }
 
-    void premikStrel(int hit) {
+    void premikStrel(float hit) {
         this->o_iMet.move(hit, 0);
     }
 

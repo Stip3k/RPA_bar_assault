@@ -11,12 +11,11 @@ sfml-audio-d.lib
 sfml-network-d.lib
 sfml-window-d.lib
 sfml-system-d.lib
-
+*/
 #include "Drop_metek.h"
 #include "Izstr_metek.h"
 #include "Igralec.h"
 #include "Nasprotnik.h"
-*/
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
@@ -24,7 +23,7 @@ sfml-system-d.lib
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
 #include <SFML/OpenGL.hpp>
-
+/*
 class Izstr_metek
 {
 private:
@@ -154,7 +153,7 @@ public:
         return false;
     }
 };
-
+*/
 
 void zakljuci(sf::RenderWindow& okno, bool smrt)
 {
