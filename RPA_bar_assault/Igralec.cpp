@@ -1,8 +1,7 @@
 #include "Igralec.h"
-#include "Drop_metek.h"
 
 Igralec::Igralec(sf::Vector2f vel) {
-    this->o_igralec.setVel(vel);
+    this->o_igralec.setSize(vel);
     this->o_igralec.setFillColor(sf::Color::Green);
 }
 
@@ -22,8 +21,19 @@ int Igralec::getY() {
     return this->o_igralec.getPosition().y;
 }
 
-bool Igralec::seDotikaDropMet(Drop_metek* dMet) {
-    if (this->o_igralec.getGlobalBounds().intersects(dMet->getGlobalBounds())) {
+int Igralec::getX() {
+    return this->o_igralec.getPosition().x;
+}
+
+bool Igralec::getGlobalBound(Drop_metek* dMet) {
+    if (this->o_igralec.getGlobalBounds().intersects(dMet->getDrMet())) {
+        return true;
+    }
+    return false;
+}
+
+bool Igralec::getGlobalBound(Nasprotnik* nas) {
+    if (this->o_igralec.getGlobalBounds().intersects(nas->getNas())) {
         return true;
     }
     return false;

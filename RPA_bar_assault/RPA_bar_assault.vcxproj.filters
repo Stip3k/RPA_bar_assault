@@ -27,7 +27,10 @@
     <ClCompile Include="Izstr_metek.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Metek.cpp">
+    <ClCompile Include="Nasprotnik.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mainP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,7 +44,7 @@
     <ClInclude Include="Izstr_metek.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Metek.h">
+    <ClInclude Include="Nasprotnik.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

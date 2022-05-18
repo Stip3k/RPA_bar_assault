@@ -1,5 +1,15 @@
 #pragma once
 
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Audio.hpp>
+#include <SFML/Network.hpp>
+#include <SFML/OpenGL.hpp>
+
+#include "Drop_metek.h"
+#include "Nasprotnik.h"
+
 class Igralec
 {
 private:
@@ -13,6 +23,9 @@ public:
     void move(sf::Vector2f razd);
     void setPoz(sf::Vector2f novaPz);
     int getY();
-    bool seDotikaDropMet(Drop_metek* dMet);
-};
+    int getX();
 
+    bool getGlobalBound(Drop_metek* dMet);
+    bool getGlobalBound(Nasprotnik* nas);
+
+};
