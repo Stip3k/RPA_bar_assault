@@ -5,6 +5,10 @@ Igralec::Igralec(sf::Vector2f vel) {
     this->o_igralec.setFillColor(sf::Color::Green);
 }
 
+Igralec::~Igralec()
+{
+}
+
 void Igralec::upodobi(sf::RenderWindow& okno) {
     okno.draw(this->o_igralec);
 }

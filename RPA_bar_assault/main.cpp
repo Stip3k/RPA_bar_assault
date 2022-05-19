@@ -14,13 +14,13 @@ sfml-system-d.lib
 */
 #include "Drop_metek.h"
 #include "Izstr_metek.h"
-#include "Igralec.h"
 #include "Nasprotnik.h"
+#include "Igralec.h"
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
-#include <SFML/Audio.hpp>
+//#include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
 #include <SFML/OpenGL.hpp>
 /*
@@ -170,6 +170,8 @@ void zakljuci(sf::RenderWindow& okno, bool smrt)
 
 int main()
 {
+    srand(time(NULL));
+
     //Spremenljivke igre
     bool aliStrela = 0;
     int stNas = 2;
@@ -220,7 +222,7 @@ int main()
 
         sf::Event Event;
 
-        const float hit = 0.2f;
+        const float hit = 6.0f;
 
         //Event Loop:
         while (okno.pollEvent(Event)) {
@@ -263,6 +265,9 @@ int main()
         /////Preverjamo ali je igralec streljal, èe je potem ustvarimo novi objekt
         /////in preverjamo ali je kaj zadel, èe zadane nasprotnika poveèamo števec stNas,
         ///// za vsak drugi zadet nasprotnik se bo v igri pojavil še eden nasprotnik.
+        
+        okno.clear();
+        
         if (aliStrela == true) {
             Izstr_metek nMet(sf::Vector2f(50, 5));
             nMet.setPoz(sf::Vector2f(igralec.getX(), igralec.getY()));
@@ -276,16 +281,14 @@ int main()
 
         for (int i = 0; i < iMetVec.size(); i++) {
             iMetVec[i]->upodobi(okno);
-            iMetVec[i]->premikStrel(1);
+            iMetVec[i]->premikStrel(0.3f);
         }
 
-        for (int i = 0; i < nasVec.size(); i++) {
-            for (int j = 0; j < iMetVec.size(); j++)
+        for (int i = 0; i < iMetVec.size(); i++)
+        {
+            for (int j = 0; j < nasVec.size(); j++)
             {
-                if (nasVec[i]->getGlobalBounds(iMetVec[j]))
-                {
-                    //
-                }
+
             }
         }
 
@@ -309,8 +312,6 @@ int main()
                 zakljuci(okno, 1);
             }
         }
-
-        okno.clear();
 
         dMet1.upodobi(okno);
         okno.draw(t_stMet);

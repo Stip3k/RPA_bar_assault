@@ -13,25 +13,12 @@ private:
     sf::RectangleShape o_iMet;
 
 public:
-    Izstr_metek(sf::Vector2f vel) {
-        this->o_iMet.setSize(vel);
-        this->o_iMet.setFillColor(sf::Color::Blue);
-    }
+    Izstr_metek(sf::Vector2f vel);
+    ~Izstr_metek();
 
-    void premikStrel(float hit) {
-        this->o_iMet.move(hit, 0);
-    }
-
-    sf::FloatRect getGlobalBounds() {
-        return this->o_iMet.getGlobalBounds();
-    }
-
-    void upodobi(sf::RenderWindow& okno) {
-        okno.draw(this->o_iMet);
-    }
-
-    void setPoz(sf::Vector2f novP) {
-        this->o_iMet.setPosition(novP);
-    }
+    void premikStrel(float hit);
+    sf::FloatRect getGlobalBounds();
+    void upodobi(sf::RenderWindow& okno);
+    void setPoz(sf::Vector2f novP);
 };
 
