@@ -124,12 +124,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Stip3k\source\repos\RPA_bar_assault\External\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Uporabnik\source\repos\RPA_bar_assault\External\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Stip3k\source\repos\RPA_bar_assault\External\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Uporabnik\source\repos\RPA_bar_assault\External\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics-d.lib;sfml-audio-d.lib;sfml-network-d.lib;sfml-window-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -141,19 +141,20 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Stip3k\source\repos\RPA_bar_assault\External\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Uporabnik\source\repos\RPA_bar_assault\External\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Stip3k\source\repos\RPA_bar_assault\External\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Uporabnik\source\repos\RPA_bar_assault\External\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics.lib;sfml-audio.lib;sfml-network.lib;sfml-window.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Drop_metek.cpp" />
+    <ClCompile Include="EnosmerniSeznam.cpp" />
     <ClCompile Include="Igralec.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Izstr_metek.cpp" />
@@ -161,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drop_metek.h" />
+    <ClInclude Include="EnosmerniSeznam.h" />
     <ClInclude Include="Igralec.h" />
     <ClInclude Include="Izstr_metek.h" />
     <ClInclude Include="Nasprotnik.h" />

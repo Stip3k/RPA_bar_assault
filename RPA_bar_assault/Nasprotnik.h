@@ -6,31 +6,24 @@ class Nasprotnik
 {
 private:
     sf::RectangleShape o_nas;
+    float velx, vely;
+    static int kol;
 
 public:
-    Nasprotnik(sf::Vector2f vel) {
-        this->o_nas.setSize(vel);
-        this->o_nas.setFillColor(sf::Color::Red);
-    }
+    Nasprotnik* nasl;
+    int indeks;
 
-    sf::FloatRect getNas()
-    {
-        return this->o_nas.getGlobalBounds();
-    }
+    Nasprotnik();
+    ~Nasprotnik();
 
-    void setPoz(sf::Vector2f novP) {
-        this->o_nas.setPosition(novP);
-    }
+    sf::FloatRect getNas();
+    void setPoz(sf::Vector2f novP);
+    void upodobi(sf::RenderWindow& okno);
 
-    bool getGlobalBounds(Izstr_metek* iMet) {
-        if (this->o_nas.getGlobalBounds().intersects(iMet->getGlobalBounds())) {
-            return true;
-        }
-        return false;
-    }
+    template<class T>
+    bool getGlobalBounds(T* r);
 
-    void upodobi(sf::RenderWindow& okno) {
-        okno.draw(this->o_nas);
-    }
+    static void setKol(int i);
+    static int getKol();
 };
 

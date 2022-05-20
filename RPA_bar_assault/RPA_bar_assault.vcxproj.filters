@@ -30,6 +30,9 @@
     <ClCompile Include="Nasprotnik.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EnosmerniSeznam.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drop_metek.h">
@@ -42,6 +45,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Nasprotnik.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EnosmerniSeznam.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -29,15 +29,9 @@ int Igralec::getX() {
     return this->o_igralec.getPosition().x;
 }
 
-bool Igralec::getGlobalBound(Drop_metek* dMet) {
-    if (this->o_igralec.getGlobalBounds().intersects(dMet->getDrMet())) {
-        return true;
-    }
-    return false;
-}
-
-bool Igralec::getGlobalBound(Nasprotnik* nas) {
-    if (this->o_igralec.getGlobalBounds().intersects(nas->getNas())) {
+template<class T>
+bool Igralec::getGlobalBounds(T* r) {
+    if (this->o_igralec.getGlobalBounds().intersects(r)){
         return true;
     }
     return false;

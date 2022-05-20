@@ -25,7 +25,6 @@ public:
     int getY();
     int getX();
 
-    bool getGlobalBound(Drop_metek* dMet);
-    bool getGlobalBound(Nasprotnik* nas);
-
+    template<class T>
+    bool getGlobalBounds(T* r);
 };

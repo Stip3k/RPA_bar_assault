@@ -1,5 +1,4 @@
 #include <string>
-#include <vector>
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
@@ -12,10 +11,12 @@ sfml-network-d.lib
 sfml-window-d.lib
 sfml-system-d.lib
 */
+
+//#include "EnosmerniSeznam.h"
+#include "Igralec.h"
+#include "Nasprotnik.h"
 #include "Drop_metek.h"
 #include "Izstr_metek.h"
-#include "Nasprotnik.h"
-#include "Igralec.h"
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
@@ -23,137 +24,113 @@ sfml-system-d.lib
 //#include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
 #include <SFML/OpenGL.hpp>
-/*
-class Izstr_metek
+
+template<class T>
+class EnosmerniSeznam
 {
-private:
-    sf::RectangleShape o_iMet;
+    T* start;
 
 public:
-    Izstr_metek(sf::Vector2f vel) {
-        this->o_iMet.setSize(vel);
-        this->o_iMet.setFillColor(sf::Color::Blue);
-    }
-
-    void premikStrel(int hit) {
-        this->o_iMet.move(hit, 0);
-    }
-
-    sf::FloatRect getGlobalBounds() {
-        return this->o_iMet.getGlobalBounds();
-    }
-
-    void upodobi(sf::RenderWindow& okno) {
-        okno.draw(this->o_iMet);
-    }
-
-    void setPoz(sf::Vector2f novP) {
-        this->o_iMet.setPosition(novP);
-    }
-};
-
-class Drop_metek
-{
-private:
-    sf::RectangleShape o_dMet;
-
-public:
-    Drop_metek(sf::Vector2f vel) {
-        this->o_dMet.setSize(vel);
-        this->o_dMet.setFillColor(sf::Color::Blue);
-    }
-
-    void upodobi(sf::RenderWindow& okno) {
-        okno.draw(this->o_dMet);
-    }
-
-    sf::FloatRect getDrMet() {
-        return this->o_dMet.getGlobalBounds();
-    }
-
-    void setPoz(sf::Vector2f novP) {
-        this->o_dMet.setPosition(novP);
-    }
-};
-
-class Nasprotnik
-{
-private:
-    sf::RectangleShape o_nas;
-
-public:
-    Nasprotnik(sf::Vector2f vel) {
-        this->o_nas.setSize(vel);
-        this->o_nas.setFillColor(sf::Color::Red);
-    }
-
-    sf::FloatRect getNas()
+    EnosmerniSeznam()
     {
-        return this->o_nas.getGlobalBounds();
+        this->start = NULL;
     }
 
-    void setPoz(sf::Vector2f novP) {
-        this->o_nas.setPosition(novP);
+    ~EnosmerniSeznam()
+    {
+        cisti();
     }
 
-    bool getGlobalBounds(Izstr_metek* iMet) {
-        if (this->o_nas.getGlobalBounds().intersects(iMet->getGlobalBounds())) {
-            return true;
+    T* getStart()
+    {
+        return start;
+    }
+
+    int vel()
+    {
+        int n = 0;
+        if (start->nasl != NULL) n++;
+        T* tmp = start;
+        while (tmp->nasl != NULL)
+        {
+            tmp = tmp->nasl;
+            n++;
         }
-        return false;
+        return n;
     }
 
-    void upodobi(sf::RenderWindow& okno) {
-        okno.draw(this->o_nas);
+    T* getT(T* tmp, int n)
+    {
+        if (tmp != NULL)
+        {
+            if (tmp->indeks == n) return tmp;
+            getT(tmp->nasl, n);
+        }
+    }
+
+    void push(int n)
+    {
+        T* nov = new T;
+        nov->indeks = n;
+        nov->nasl = NULL;
+        if (start != NULL)
+        {
+            T* tmp = start;
+            while (tmp->nasl != NULL)
+                tmp = tmp->nasl;
+            tmp->nasl = nov;
+        }
+        else { if (start == NULL) start = nov; }
+    }
+
+    void pop(int n)
+    {
+        T* tmp = start;
+        if (start != NULL)
+        {
+            if (start->indeks == n)
+            {
+                start = start->nasl;
+                delete tmp;
+                return;
+            }
+            T* tmp1 = NULL;
+            while (tmp->indeks != n)
+            {
+                tmp1 = tmp;
+                tmp = tmp->nasl;
+            }
+            tmp1->nasl = tmp->nasl;
+            delete tmp;
+        }
+        return;
+    }
+
+    void cisti()
+    {
+        if (start != NULL)
+        {
+            T* tmp = start, * tmp1 = NULL;
+            while (tmp->nasl != NULL)
+            {
+                tmp1 = tmp->nasl;
+                delete tmp;
+                tmp = tmp1;
+            }
+            delete tmp;
+        }
+    }
+
+    void izpis()
+    {
+        T* tmp = start;
+        while (tmp->nasl != NULL)
+        {
+            std::cout << tmp->indeks << std::endl;
+            tmp = tmp->nasl;
+        }
     }
 };
-
-class Igralec
-{
-private:
-    sf::RectangleShape o_igralec;
-
-public:
-    Igralec(sf::Vector2f vel) {
-        this->o_igralec.setSize(vel);
-        this->o_igralec.setFillColor(sf::Color::Green);
-    }
-
-    void upodobi(sf::RenderWindow& okno) {
-        okno.draw(this->o_igralec);
-    }
-
-    void move(sf::Vector2f razd) {
-        this->o_igralec.move(razd);
-    }
-
-    void setPoz(sf::Vector2f novaPz) {
-        this->o_igralec.setPosition(novaPz);
-    }
-
-    int getY() {
-        return this->o_igralec.getPosition().y;
-    }
-
-    int getX() {
-        return this->o_igralec.getPosition().x;
-    }
-
-    bool getGlobalBound(Drop_metek* dMet) {
-        if (this->o_igralec.getGlobalBounds().intersects(dMet->getDrMet())) {
-            return true;
-        }
-        return false;
-    }
-    //Spremeni return type od nasprotnika pri getglobalbound
-    bool getGlobalBound(Nasprotnik* nas) {
-        if (this->o_igralec.getGlobalBounds().intersects(nas->getNas())) {
-            return true;
-        }
-        return false;
-    }
-};
-*/
 
 void zakljuci(sf::RenderWindow& okno, bool smrt)
 {
@@ -175,35 +152,37 @@ int main()
     //Spremenljivke igre
     bool aliStrela = 0;
     int stNas = 2;
+    int stim = 0;
     int stMet = 0;
+    const float hit = 6.0f;
+    int stdm = 2;//Stevilo nabojev, ki jih igrallec lahko nabere v igri
+    sf::Event Event;
+
+    EnosmerniSeznam<Drop_metek> dSez;
+    EnosmerniSeznam<Izstr_metek> iSez;
+    EnosmerniSeznam<Nasprotnik> nSez;
 
     sf::RenderWindow okno;
     sf::Vector2i pozOkna((sf::VideoMode::getDesktopMode().width / 2) - 445, (sf::VideoMode::getDesktopMode().height / 2) - 480);
 
-    okno.create(sf::VideoMode(900, 900), "Barbarian assault!", sf::Style::Titlebar | sf::Style::Close);
+    okno.create(sf::VideoMode(900, 500), "Barbarian assault!", sf::Style::Titlebar | sf::Style::Close);
     okno.setPosition(pozOkna);
     okno.setKeyRepeatEnabled(true);
     
     Igralec igralec({ 40, 40 });
-    igralec.setPoz({ 50, 700 });
+    igralec.setPoz({ rand() % okno.getSize().x - 30.0f + 1.0f, rand() % okno.getSize().y - 30.0f + 1.0f });
 
-    std::vector<Izstr_metek*> iMetVec;
-    std::vector<Drop_metek*> dMetVec;
-    std::vector<Nasprotnik*> nasVec;
-
-    Drop_metek dMet1({ 20, 20 });
-    Drop_metek dMet2({ 20, 20 });
-    dMetVec.push_back(&dMet1);
-    dMetVec.push_back(&dMet2);
-
-    dMet1.setPoz({ 50, 600 });
-    dMet2.setPoz({ 100, 600 });
+    for (int i = 0; i < stdm; i++)
+    {
+        dSez.push(i);
+        dSez.getT(dSez.getStart(), i)->setPoz({ rand() % okno.getSize().x - 30.0f + 1.0f, rand() % okno.getSize().y - 30.0f + 1.0f });
+    }
     
     sf::Font arial;
     arial.loadFromFile("arial.ttf");
 
     std::ostringstream s_stMet;
-    s_stMet << "Število nabojev: " << stMet%2;
+    s_stMet << "stMet: " << stMet%2;
 
     sf::Text t_stMet;
     t_stMet.setCharacterSize(30);
@@ -213,16 +192,12 @@ int main()
 
     //Zanka igre:
     while (okno.isOpen()) {
-
+        
         /*
             Ustvarimo nov objekt razrreda Event,
             nato preverjamo vnos s tipkovnice in
             sprožamo dogodke.
         */
-
-        sf::Event Event;
-
-        const float hit = 6.0f;
 
         //Event Loop:
         while (okno.pollEvent(Event)) {
@@ -259,7 +234,7 @@ int main()
         
             2. Preverjamo ali je v stiku z igralcem, nasprotnikom,...
 
-            3. TODO: Sistem za nasprotnike
+            3. TODO: Sistem za nasprotnike(opravljeno)
         */   
 
         /////Preverjamo ali je igralec streljal, èe je potem ustvarimo novi objekt
@@ -269,34 +244,57 @@ int main()
         okno.clear();
         
         if (aliStrela == true) {
-            Izstr_metek nMet(sf::Vector2f(50, 5));
-            nMet.setPoz(sf::Vector2f(igralec.getX(), igralec.getY()));
-            iMetVec.push_back(&nMet);
-            aliStrela = false;
-            stMet--;
-            s_stMet.str("");
-            s_stMet << "stMet " << stMet;
-            t_stMet.setString(s_stMet.str());
-        }
-
-        for (int i = 0; i < iMetVec.size(); i++) {
-            iMetVec[i]->upodobi(okno);
-            iMetVec[i]->premikStrel(0.3f);
-        }
-
-        for (int i = 0; i < iMetVec.size(); i++)
-        {
-            for (int j = 0; j < nasVec.size(); j++)
+            if (stMet > 0)
             {
+                iSez.push(stim);
+                iSez.getT(iSez.getStart(),stim)->setPoz(sf::Vector2f(igralec.getX(), igralec.getY() + 10.0f));
+                stim++;
+                stMet--;
+                s_stMet.str("");
+                s_stMet << "stMet " << stMet;
+                t_stMet.setString(s_stMet.str());
 
             }
+            aliStrela = false;
+        }
+
+        for (int i = 0; i < stim; i++)
+        {
+            for (int j = 0; j < stNas; j++)
+            {
+                if (nSez.getT(nSez.getStart(), j)->getGlobalBounds<Izstr_metek>(iSez.getT(iSez.getStart(), i)))
+                {
+                    nSez.getT(nSez.getStart(), j)->setPoz({ rand() % okno.getSize().x - 30.0f + 1.0f, rand() % okno.getSize().y - 30.0f + 1.0f });
+                    stNas++;
+                    iSez.pop(i);
+
+                }
+            }
+            if (iSez.getT(iSez.getStart(), i)->aliStikEkran(okno))
+            {
+                iSez.pop(i);
+            }
+            else
+            {
+                iSez.getT(iSez.getStart(), i)->premikStrel(0.5f);
+                iSez.getT(iSez.getStart(), i)->upodobi(okno);
+            }
+        }
+
+        std::cout << Nasprotnik::getKol() << std::endl;
+
+        for (int i = Nasprotnik::getKol(); i < stNas / 2; i++)
+        {
+            nSez.push(Nasprotnik::getKol());
+            nSez.getT(nSez.getStart(), Nasprotnik::getKol())->setPoz({ rand() % okno.getSize().x - 30.0f + 1.0f, rand() % okno.getSize().y - 30.0f + 1.0f });
+            Nasprotnik::setKol(Nasprotnik::getKol() + 1);
         }
 
         /////Preverjamo ali je igralec blizu naboja, pristejemo k stevcu stMet,
         /////to pomeni, da lahko za toliko vec strelja.
-        for (int i = 0; i < dMetVec.size(); i++) {
-            if (igralec.getGlobalBound(dMetVec[i])) {
-                dMetVec[i]->setPoz({ rand() % 870 + 1.0f, rand() % 870 + 1.0f });
+        for (int i = 0; i < stdm; i++) {
+            if (igralec.getGlobalBounds<Drop_metek>(dSez.getT(dSez.getStart(), i))) {
+                dSez.getT(dSez.getStart(), i)->setPoz({ rand() % okno.getSize().x - 30.0f + 1.0f, rand() % okno.getSize().y - 30.0f + 1.0f });
                 stMet++;
                 s_stMet.str("");
                 s_stMet << "stMet " << stMet;
@@ -306,16 +304,19 @@ int main()
         
         /////preverja ali je igralec v stiku z nasprotnikom,
         /////ker znas samo streljati na daleè te z lahkoto premaga nasprotnik.
-        for (int i = 0; i < nasVec.size() % 2; i++)
+        for (int i = 0; i < stNas/2; i++)
         {
-            if (igralec.getGlobalBound(nasVec[i])) {
+            if (igralec.getGlobalBounds<Nasprotnik>(nSez.getT(nSez.getStart(), i))) {
                 zakljuci(okno, 1);
             }
         }
 
-        dMet1.upodobi(okno);
+        for (int i = 0; i < stNas/2; i++)
+            nSez.getT(nSez.getStart(), i)->upodobi(okno);
+        for (int i = 0; i < stdm; i++)
+            dSez.getT(dSez.getStart(), i)->upodobi(okno);
+        
         okno.draw(t_stMet);
-        dMet2.upodobi(okno);
         igralec.upodobi(okno);
 
         okno.display();

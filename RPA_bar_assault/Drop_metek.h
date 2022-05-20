@@ -11,13 +11,17 @@ class Drop_metek
 {
 private:
     sf::RectangleShape o_dMet;
+    float velx, vely;
+
 public:
-    Drop_metek(sf::Vector2f vel);
+    Drop_metek* nasl;
+    int indeks;
+
+    Drop_metek();
 
     void upodobi(sf::RenderWindow& okno);
-
-    sf::FloatRect getDrMet();
-
+    sf::FloatRect getGlobalBounds();
     void setPoz(sf::Vector2f novP);
+
 };
 
