@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Izstr_metek.h"
+#include "Drop_metek.h"
 
 class Nasprotnik
 {
@@ -16,14 +17,20 @@ public:
     Nasprotnik();
     ~Nasprotnik();
 
-    sf::FloatRect getNas();
+    sf::FloatRect getGlobalBounds();
     void setPoz(sf::Vector2f novP);
     void upodobi(sf::RenderWindow& okno);
 
-    template<class T>
-    bool getGlobalBounds(T* r);
-
     static void setKol(int i);
     static int getKol();
+    sf::RectangleShape getRec();
+
+    template<class T>
+    bool getGlobalBounds(T *r) {
+        if (this->o_nas.getGlobalBounds().intersects(r->getGlobalBounds())) {
+            return true;
+        }
+        return false;
+    }
 };
 

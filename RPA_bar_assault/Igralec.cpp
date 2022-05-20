@@ -28,11 +28,3 @@ int Igralec::getY() {
 int Igralec::getX() {
     return this->o_igralec.getPosition().x;
 }
-
-template<class T>
-bool Igralec::getGlobalBounds(T* r) {
-    if (this->o_igralec.getGlobalBounds().intersects(r)){
-        return true;
-    }
-    return false;
-}

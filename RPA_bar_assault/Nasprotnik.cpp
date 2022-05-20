@@ -15,22 +15,13 @@ Nasprotnik::~Nasprotnik()
 {
 }
 
-sf::FloatRect Nasprotnik::getNas()
+sf::FloatRect Nasprotnik::getGlobalBounds()
 {
     return this->o_nas.getGlobalBounds();
 }
 
 void Nasprotnik::setPoz(sf::Vector2f novP) {
     this->o_nas.setPosition(novP);
-}
-
-template<class T>
-bool Nasprotnik::getGlobalBounds(T* r) {
-    if (this->o_nas.getGlobalBounds().intersects(r->getGlobalBounds())) {
-        return true;
-
-    }
-    return false;
 }
 
 void Nasprotnik::upodobi(sf::RenderWindow& okno) {
@@ -43,4 +34,9 @@ void Nasprotnik::setKol(int i) {
 
 int Nasprotnik::getKol() {
     return kol;
+}
+
+sf::RectangleShape Nasprotnik::getRec()
+{
+    return this->o_nas;
 }

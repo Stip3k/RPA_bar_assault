@@ -9,6 +9,11 @@ Drop_metek::Drop_metek() {
     this->indeks = 0;
 }
 
+sf::RectangleShape Drop_metek::getRec()
+{
+    return this->o_dMet;
+}
+
 void Drop_metek::upodobi(sf::RenderWindow& okno) {
     okno.draw(this->o_dMet);
 }

@@ -56,3 +56,8 @@ bool Izstr_metek::aliStikEkran(sf::RenderWindow& okno)
     if (this->getSpod() < 10.0f) return 1;
     return 0;
 }
+
+sf::RectangleShape Izstr_metek::getRec()
+{
+    return this->o_iMet;
+}

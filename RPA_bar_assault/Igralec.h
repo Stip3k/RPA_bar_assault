@@ -24,7 +24,12 @@ public:
     void setPoz(sf::Vector2f novaPz);
     int getY();
     int getX();
-
+    
     template<class T>
-    bool getGlobalBounds(T* r);
+    bool getGlobalBounds(T* r) {
+        if (this->o_igralec.getGlobalBounds().intersects(r->getGlobalBounds())) {
+            return true;
+        }
+        return false;
+    }
 };

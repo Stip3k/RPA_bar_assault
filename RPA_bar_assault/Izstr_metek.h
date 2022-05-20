@@ -30,5 +30,6 @@ public:
     void upodobi(sf::RenderWindow& okno);
     void setPoz(sf::Vector2f novP);
     bool aliStikEkran(sf::RenderWindow& okno);
+    sf::RectangleShape getRec();
 };
 

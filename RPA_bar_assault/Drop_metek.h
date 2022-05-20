@@ -19,6 +19,7 @@ public:
 
     Drop_metek();
 
+    sf::RectangleShape getRec();
     void upodobi(sf::RenderWindow& okno);
     sf::FloatRect getGlobalBounds();
     void setPoz(sf::Vector2f novP);

@@ -1,8 +1,9 @@
 #include <string>
 #include <cstdlib>
 #include <ctime>
-#include <iostream>
+#include <fstream>
 #include <sstream>
+#include <iostream>
 
 /*
 sfml-graphics-d.lib
@@ -12,7 +13,7 @@ sfml-window-d.lib
 sfml-system-d.lib
 */
 
-//#include "EnosmerniSeznam.h"
+#include "EnosmerniSeznam.h"
 #include "Igralec.h"
 #include "Nasprotnik.h"
 #include "Drop_metek.h"
@@ -24,113 +25,6 @@ sfml-system-d.lib
 //#include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
 #include <SFML/OpenGL.hpp>
-
-template<class T>
-class EnosmerniSeznam
-{
-    T* start;
-
-public:
-    EnosmerniSeznam()
-    {
-        this->start = NULL;
-    }
-
-    ~EnosmerniSeznam()
-    {
-        cisti();
-    }
-
-    T* getStart()
-    {
-        return start;
-    }
-
-    int vel()
-    {
-        int n = 0;
-        if (start->nasl != NULL) n++;
-        T* tmp = start;
-        while (tmp->nasl != NULL)
-        {
-            tmp = tmp->nasl;
-            n++;
-        }
-        return n;
-    }
-
-    T* getT(T* tmp, int n)
-    {
-        if (tmp != NULL)
-        {
-            if (tmp->indeks == n) return tmp;
-            getT(tmp->nasl, n);
-        }
-    }
-
-    void push(int n)
-    {
-        T* nov = new T;
-        nov->indeks = n;
-        nov->nasl = NULL;
-        if (start != NULL)
-        {
-            T* tmp = start;
-            while (tmp->nasl != NULL)
-                tmp = tmp->nasl;
-            tmp->nasl = nov;
-        }
-        else { if (start == NULL) start = nov; }
-    }
-
-    void pop(int n)
-    {
-        T* tmp = start;
-        if (start != NULL)
-        {
-            if (start->indeks == n)
-            {
-                start = start->nasl;
-                delete tmp;
-                return;
-            }
-            T* tmp1 = NULL;
-            while (tmp->indeks != n)
-            {
-                tmp1 = tmp;
-                tmp = tmp->nasl;
-            }
-            tmp1->nasl = tmp->nasl;
-            delete tmp;
-        }
-        return;
-    }
-
-    void cisti()
-    {
-        if (start != NULL)
-        {
-            T* tmp = start, * tmp1 = NULL;
-            while (tmp->nasl != NULL)
-            {
-                tmp1 = tmp->nasl;
-                delete tmp;
-                tmp = tmp1;
-            }
-            delete tmp;
-        }
-    }
-
-    void izpis()
-    {
-        T* tmp = start;
-        while (tmp->nasl != NULL)
-        {
-            std::cout << tmp->indeks << std::endl;
-            tmp = tmp->nasl;
-        }
-    }
-};
 
 void zakljuci(sf::RenderWindow& okno, bool smrt)
 {
@@ -267,12 +161,14 @@ int main()
                     nSez.getT(nSez.getStart(), j)->setPoz({ rand() % okno.getSize().x - 30.0f + 1.0f, rand() % okno.getSize().y - 30.0f + 1.0f });
                     stNas++;
                     iSez.pop(i);
+                    stim--;
 
                 }
             }
             if (iSez.getT(iSez.getStart(), i)->aliStikEkran(okno))
             {
                 iSez.pop(i);
+                stim--;
             }
             else
             {
